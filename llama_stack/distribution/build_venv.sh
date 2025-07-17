@@ -6,9 +6,6 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 
-# TODO: combine this with build_conda_env.sh since it is almost identical
-# the only difference is that we don't do any conda-specific setup
-
 LLAMA_STACK_DIR=${LLAMA_STACK_DIR:-}
 LLAMA_STACK_CLIENT_DIR=${LLAMA_STACK_CLIENT_DIR:-}
 TEST_PYPI_VERSION=${TEST_PYPI_VERSION:-}
@@ -42,7 +39,6 @@ pip_dependencies="$2"
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-# this is set if we actually create a new conda in which case we need to clean up
 ENVNAME=""
 
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")

@@ -67,9 +67,6 @@ def run_stack_build_command(args: argparse.Namespace) -> None:
     if args.image_type == ImageType.VENV.value:
         current_venv = os.environ.get("VIRTUAL_ENV")
         image_name = args.image_name or current_venv
-    elif args.image_type == ImageType.CONDA.value:
-        current_conda_env = os.environ.get("CONDA_DEFAULT_ENV")
-        image_name = args.image_name or current_conda_env
     else:
         image_name = args.image_name
 
@@ -134,7 +131,7 @@ def run_stack_build_command(args: argparse.Namespace) -> None:
         )
         if not args.image_type:
             cprint(
-                f"Please specify a image-type (container | conda | venv) for {args.template}",
+                f"Please specify a image-type (container | venv) for {args.template}",
                 color="red",
                 file=sys.stderr,
             )
@@ -160,22 +157,7 @@ def run_stack_build_command(args: argparse.Namespace) -> None:
             ),
         )
 
-        if image_type == ImageType.CONDA.value:
-            if not image_name:
-                cprint(
-                    f"No current conda environment detected or specified, will create a new conda environment with the name `llamastack-{name}`",
-                    color="yellow",
-                    file=sys.stderr,
-                )
-                image_name = f"llamastack-{name}"
-            else:
-                cprint(
-                    f"Using conda environment {image_name}",
-                    color="green",
-                    file=sys.stderr,
-                )
-        else:
-            image_name = f"llamastack-{name}"
+        image_name = f"llamastack-{name}"
 
         cprint(
             textwrap.dedent(
@@ -276,7 +258,7 @@ def run_stack_build_command(args: argparse.Namespace) -> None:
         config = parse_and_maybe_upgrade_config(config_dict)
         if config.external_providers_dir and not config.external_providers_dir.exists():
             config.external_providers_dir.mkdir(exist_ok=True)
-        run_args = formulate_run_args(args.image_type, args.image_name, config, args.template)
+        run_args = formulate_run_args(args.image_type, args.image_name)
         run_args.extend([str(os.getenv("LLAMA_STACK_PORT", 8321)), "--config", run_config])
         run_command(run_args)
 
@@ -370,10 +352,7 @@ def _run_stack_build_command_from_build_config(
         else:
             if not image_name:
                 raise ValueError("Please specify an image name when building a container image without a template")
-    elif build_config.image_type == LlamaStackImageType.CONDA.value:
-        if not image_name:
-            raise ValueError("Please specify an image name when building a conda image")
-    elif build_config.image_type == LlamaStackImageType.VENV.value:
+    else:
         if not image_name and os.environ.get("UV_SYSTEM_PYTHON"):
             image_name = "__system__"
         if not image_name:
@@ -406,9 +385,8 @@ def _run_stack_build_command_from_build_config(
 
     return_code = build_image(
         build_config,
-        build_file_path,
         image_name,
-        template_or_config=template_name or config_path or str(build_file_path),
+        template_name or config_path or str(build_file_path),
         run_config=run_config_file.as_posix() if run_config_file else None,
     )
     if return_code != 0:

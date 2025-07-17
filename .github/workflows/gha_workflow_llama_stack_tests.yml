@@ -214,11 +214,7 @@ jobs:
       - name: "Installing packages with 'wget'"
         id: install_wget
         run: |
-          wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-          chmod +x Miniconda3-latest-Linux-x86_64.sh
-          ./Miniconda3-latest-Linux-x86_64.sh -b install -c pytorch -c nvidia faiss-gpu=1.9.0
-          # Add miniconda3 bin to system path
-          echo "${HOME}/miniconda3/bin" >> "$GITHUB_PATH"
+          echo "No wget packages to install currently"
 
       - name: "Installing packages with 'npm'"
         id: install_npm_generic
@@ -238,11 +234,8 @@ jobs:
             fairscale lm-format-enforcer \
             zmq chardet pypdf \
             pandas sentence_transformers together \
-            aiosqlite
-      - name: "Installing packages with conda"
-        id: install_conda_generic
-        run: |
-          conda install -q -c pytorch -c nvidia faiss-gpu=1.9.0
+            aiosqlite faiss-gpu
+
 
       #############################################################
       #### TESTING TO BE DONE FOR BOTH PRS AND MANUAL DISPATCH ####

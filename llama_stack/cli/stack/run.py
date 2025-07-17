@@ -47,7 +47,7 @@ class StackRun(Subcommand):
         self.parser.add_argument(
             "--image-name",
             type=str,
-            default=os.environ.get("CONDA_DEFAULT_ENV"),
+            default=None,
             help="Name of the image to run. Defaults to the current environment",
         )
         self.parser.add_argument(
@@ -59,7 +59,7 @@ class StackRun(Subcommand):
         self.parser.add_argument(
             "--image-type",
             type=str,
-            help="Image Type used during the build. This can be either conda or container or venv.",
+            help="Image Type used during the build. This can be only venv.",
             choices=[e.value for e in ImageType if e.value != ImageType.CONTAINER.value],
         )
         self.parser.add_argument(
@@ -68,19 +68,7 @@ class StackRun(Subcommand):
             help="Start the UI server",
         )
 
-    # If neither image type nor image name is provided, but at the same time
-    # the current environment has conda breadcrumbs, then assume what the user
-    # wants to use conda mode and not the usual default mode (using
-    # pre-installed system packages).
-    #
-    # Note: yes, this is hacky. It's implemented this way to keep the existing
-    # conda users unaffected by the switch of the default behavior to using
-    # system packages.
     def _get_image_type_and_name(self, args: argparse.Namespace) -> tuple[str, str]:
-        conda_env = os.environ.get("CONDA_DEFAULT_ENV")
-        if conda_env and args.image_name == conda_env:
-            logger.warning(f"Conda detected. Using conda environment {conda_env} for the run.")
-            return ImageType.CONDA.value, args.image_name
         return args.image_type, args.image_name
 
     def _resolve_config_and_template(self, args: argparse.Namespace) -> tuple[Path | None, str | None]:
@@ -130,15 +118,15 @@ class StackRun(Subcommand):
         config_file, template_name = self._resolve_config_and_template(args)
 
         # Check if config is required based on image type
-        if (image_type in [ImageType.CONDA.value, ImageType.VENV.value]) and not config_file:
-            self.parser.error("Config file is required for venv and conda environments")
+        if image_type == ImageType.VENV.value and not config_file:
+            self.parser.error("Config file is required for venv environment")
 
         if config_file:
             logger.info(f"Using run configuration: {config_file}")
 
             try:
                 config_dict = yaml.safe_load(config_file.read_text())
-            except yaml.parser.ParserError as e:
+            except yaml.YAMLError as e:
                 self.parser.error(f"failed to load config file '{config_file}':\n {e}")
 
             try:
@@ -176,7 +164,7 @@ class StackRun(Subcommand):
             # Run the server
             server_main(server_args)
         else:
-            run_args = formulate_run_args(image_type, image_name, config, template_name)
+            run_args = formulate_run_args(image_type, image_name)
 
             run_args.extend([str(args.port)])
 

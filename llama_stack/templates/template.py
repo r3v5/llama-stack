@@ -28,6 +28,7 @@ from llama_stack.distribution.datatypes import (
 )
 from llama_stack.distribution.distribution import get_provider_registry
 from llama_stack.distribution.utils.dynamic import instantiate_class_type
+from llama_stack.distribution.utils.image_types import LlamaStackImageType
 from llama_stack.providers.utils.inference.model_registry import ProviderModelEntry
 from llama_stack.providers.utils.kvstore.config import SqliteKVStoreConfig
 from llama_stack.providers.utils.kvstore.config import get_pip_packages as get_kv_pip_packages
@@ -261,7 +262,7 @@ class DistributionTemplate(BaseModel):
                 container_image=self.container_image,
                 providers=self.providers,
             ),
-            image_type="conda",  # default to conda, can be overridden
+            image_type=LlamaStackImageType.VENV.value,  # default to venv
             additional_pip_packages=sorted(set(additional_pip_packages)),
         )
 

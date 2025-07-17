@@ -28,7 +28,7 @@ distribution_spec:
     - remote::tavily-search
     - inline::rag-runtime
     - remote::model-context-protocol
-image_type: conda
+image_type: venv
 additional_pip_packages:
 - aiosqlite
 - sqlalchemy[asyncio]

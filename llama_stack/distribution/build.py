@@ -7,7 +7,6 @@
 import importlib.resources
 import logging
 import sys
-from pathlib import Path
 
 from pydantic import BaseModel
 from termcolor import cprint
@@ -96,7 +95,6 @@ def print_pip_install_help(config: BuildConfig):
 
 def build_image(
     build_config: BuildConfig,
-    build_file_path: Path,
     image_name: str,
     template_or_config: str,
     run_config: str | None = None,
@@ -120,15 +118,7 @@ def build_image(
         # build arguments
         if run_config is not None:
             args.append(run_config)
-    elif build_config.image_type == LlamaStackImageType.CONDA.value:
-        script = str(importlib.resources.files("llama_stack") / "distribution/build_conda_env.sh")
-        args = [
-            script,
-            str(image_name),
-            str(build_file_path),
-            " ".join(normal_deps),
-        ]
-    elif build_config.image_type == LlamaStackImageType.VENV.value:
+    else:
         script = str(importlib.resources.files("llama_stack") / "distribution/build_venv.sh")
         args = [
             script,
