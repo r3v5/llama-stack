@@ -352,7 +352,7 @@ class OpenAIVectorStoreMixin(ABC):
         extra = params.model_extra or {}
         provider_vector_db_id = extra.get("provider_vector_db_id")
         embedding_model = extra.get("embedding_model")
-        embedding_dimension = extra.get("embedding_dimension", 384)
+        embedding_dimension = extra.get("embedding_dimension", 768)
         provider_id = extra.get("provider_id")
 
         # Derive the canonical vector_db_id (allow override, else generate)
@@ -364,7 +364,7 @@ class OpenAIVectorStoreMixin(ABC):
         if embedding_model is None:
             raise ValueError("Embedding model is required")
 
-        # Embedding dimension is required (defaulted to 384 if not provided)
+        # Embedding dimension is required (defaulted to 768 if not provided)
         if embedding_dimension is None:
             raise ValueError("Embedding dimension is required")
 
