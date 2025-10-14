@@ -576,6 +576,7 @@ def test_openai_vector_store_attach_file(
 ):
     """Test OpenAI vector store attach file."""
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
+    from llama_stack.apis.files import ExpiresAfter
 
     compat_client = compat_client_with_empty_stores
 
@@ -594,8 +595,7 @@ def test_openai_vector_store_attach_file(
         file = compat_client.files.create(
             file=file_buffer,
             purpose="assistants",
-            expires_after_anchor="created_at",
-            expires_after_seconds=86400,  # 24 hours
+            expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
         )
 
     # Attach the file to the vector store
@@ -638,6 +638,7 @@ def test_openai_vector_store_attach_files_on_creation(
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
 
     compat_client = compat_client_with_empty_stores
+    from llama_stack.apis.files import ExpiresAfter
 
     # Create some files and attach them to the vector store
     valid_file_ids = []
@@ -647,8 +648,7 @@ def test_openai_vector_store_attach_files_on_creation(
             file = compat_client.files.create(
                 file=file_buffer,
                 purpose="assistants",
-                expires_after_anchor="created_at",
-                expires_after_seconds=86400,  # 24 hours
+                expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
             )
         valid_file_ids.append(file.id)
 
@@ -701,6 +701,7 @@ def test_openai_vector_store_list_files(
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
 
     compat_client = compat_client_with_empty_stores
+    from llama_stack.apis.files import ExpiresAfter
 
     # Create a vector store
     vector_store = compat_client.vector_stores.create(
@@ -718,8 +719,7 @@ def test_openai_vector_store_list_files(
             file = compat_client.files.create(
                 file=file_buffer,
                 purpose="assistants",
-                expires_after_anchor="created_at",
-                expires_after_seconds=86400,  # 24 hours
+                expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
             )
 
         response = compat_client.vector_stores.files.create(
@@ -790,6 +790,7 @@ def test_openai_vector_store_retrieve_file_contents(
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
 
     compat_client = compat_client_with_empty_stores
+    from llama_stack.apis.files import ExpiresAfter
 
     # Create a vector store
     vector_store = compat_client.vector_stores.create(
@@ -808,8 +809,7 @@ def test_openai_vector_store_retrieve_file_contents(
         file = compat_client.files.create(
             file=file_buffer,
             purpose="assistants",
-            expires_after_anchor="created_at",
-            expires_after_seconds=86400,  # 24 hours
+            expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
         )
 
     # Attach the file to the vector store
@@ -849,6 +849,7 @@ def test_openai_vector_store_delete_file(
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
 
     compat_client = compat_client_with_empty_stores
+    from llama_stack.apis.files import ExpiresAfter
 
     # Create a vector store
     vector_store = compat_client.vector_stores.create(
@@ -866,8 +867,7 @@ def test_openai_vector_store_delete_file(
             file = compat_client.files.create(
                 file=file_buffer,
                 purpose="assistants",
-                expires_after_anchor="created_at",
-                expires_after_seconds=86400,  # 24 hours
+                expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
             )
 
         compat_client.vector_stores.files.create(
@@ -913,6 +913,7 @@ def test_openai_vector_store_delete_file_removes_from_vector_store(
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
 
     compat_client = compat_client_with_empty_stores
+    from llama_stack.apis.files import ExpiresAfter
 
     # Create a vector store
     vector_store = compat_client.vector_stores.create(
@@ -929,8 +930,7 @@ def test_openai_vector_store_delete_file_removes_from_vector_store(
         file = compat_client.files.create(
             file=file_buffer,
             purpose="assistants",
-            expires_after_anchor="created_at",
-            expires_after_seconds=86400,  # 24 hours
+            expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
         )
 
     # Attach the file to the vector store
@@ -963,6 +963,7 @@ def test_openai_vector_store_update_file(
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
 
     compat_client = compat_client_with_empty_stores
+    from llama_stack.apis.files import ExpiresAfter
 
     # Create a vector store
     vector_store = compat_client.vector_stores.create(
@@ -979,8 +980,7 @@ def test_openai_vector_store_update_file(
         file = compat_client.files.create(
             file=file_buffer,
             purpose="assistants",
-            expires_after_anchor="created_at",
-            expires_after_seconds=86400,  # 24 hours
+            expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
         )
 
     # Attach the file to the vector store
@@ -1018,6 +1018,7 @@ def test_create_vector_store_files_duplicate_vector_store_name(
     This test confirms that client.vector_stores.create() creates a unique ID
     """
     skip_if_provider_doesnt_support_openai_vector_stores(client_with_models)
+    from llama_stack.apis.files import ExpiresAfter
 
     compat_client = compat_client_with_empty_stores
 
@@ -1029,8 +1030,7 @@ def test_create_vector_store_files_duplicate_vector_store_name(
             file = compat_client.files.create(
                 file=file_buffer,
                 purpose="assistants",
-                expires_after_anchor="created_at",
-                expires_after_seconds=86400,  # 24 hours
+                expires_after=ExpiresAfter(anchor="created_at", seconds=86400),  # 24 hours
             )
         file_ids.append(file.id)
 
