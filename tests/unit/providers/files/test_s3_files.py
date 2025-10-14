@@ -258,6 +258,19 @@ class TestS3FilesImpl:
         with pytest.raises(ResourceNotFoundError, match="not found"):
             await s3_provider._get_file(uploaded.id, return_expired=True)
 
+    async def test_unsupported_expires_after_anchor(self, s3_provider, sample_text_file):
+        """Unsupported anchor value should raise ValueError."""
+        from llama_stack.apis.files import ExpiresAfter
+
+        sample_text_file.filename = "test_unsupported_expires_after_anchor"
+
+        with pytest.raises(ValueError, match="Input should be 'created_at'"):
+            await s3_provider.openai_upload_file(
+                file=sample_text_file,
+                purpose=OpenAIFilePurpose.ASSISTANTS,
+                expires_after=ExpiresAfter(anchor="now", seconds=3600),  # type: ignore
+            )
+
     async def test_nonint_expires_after_seconds(self, s3_provider, sample_text_file):
         """Non-integer seconds in expires_after should raise ValueError."""
         from llama_stack.apis.files import ExpiresAfter
