@@ -146,8 +146,6 @@ def test_openai_create_vector_store(
         metadata={"purpose": "testing", "environment": "integration"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -175,8 +173,6 @@ def test_openai_list_vector_stores(
         metadata={"type": "test"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
     store2 = client.vector_stores.create(
@@ -184,8 +180,6 @@ def test_openai_list_vector_stores(
         metadata={"type": "test"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -220,8 +214,6 @@ def test_openai_retrieve_vector_store(
         metadata={"purpose": "retrieval_test"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -249,8 +241,6 @@ def test_openai_update_vector_store(
         metadata={"version": "1.0"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
     time.sleep(1)
@@ -282,8 +272,6 @@ def test_openai_delete_vector_store(
         metadata={"purpose": "deletion_test"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -314,8 +302,6 @@ def test_openai_vector_store_search_empty(
         metadata={"purpose": "search_testing"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -346,8 +332,6 @@ def test_openai_vector_store_with_chunks(
         metadata={"purpose": "chunks_testing"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -412,8 +396,6 @@ def test_openai_vector_store_search_relevance(
         metadata={"purpose": "relevance_testing"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -457,8 +439,6 @@ def test_openai_vector_store_search_with_ranking_options(
         metadata={"purpose": "ranking_testing"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -512,8 +492,6 @@ def test_openai_vector_store_search_with_high_score_filter(
         metadata={"purpose": "high_score_filtering"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -573,8 +551,6 @@ def test_openai_vector_store_search_with_max_num_results(
         metadata={"purpose": "max_num_results_testing"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -608,8 +584,6 @@ def test_openai_vector_store_attach_file(
         name="test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -688,8 +662,6 @@ def test_openai_vector_store_attach_files_on_creation(
         file_ids=file_ids,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -735,8 +707,6 @@ def test_openai_vector_store_list_files(
         name="test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -826,8 +796,6 @@ def test_openai_vector_store_retrieve_file_contents(
         name="test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -851,8 +819,6 @@ def test_openai_vector_store_retrieve_file_contents(
         attributes=attributes,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -889,8 +855,6 @@ def test_openai_vector_store_delete_file(
         name="test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -955,8 +919,6 @@ def test_openai_vector_store_delete_file_removes_from_vector_store(
         name="test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1007,8 +969,6 @@ def test_openai_vector_store_update_file(
         name="test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1078,8 +1038,6 @@ def test_create_vector_store_files_duplicate_vector_store_name(
         name="test_store_with_files",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
     assert vector_store.file_counts.completed == 0
@@ -1092,8 +1050,6 @@ def test_create_vector_store_files_duplicate_vector_store_name(
         name="test_store_with_files",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1105,8 +1061,6 @@ def test_create_vector_store_files_duplicate_vector_store_name(
         file_id=file_ids[0],
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
     assert created_file.status == "completed"
@@ -1117,8 +1071,6 @@ def test_create_vector_store_files_duplicate_vector_store_name(
         file_id=file_ids[1],
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
     assert created_file_from_non_deleted_vector_store.status == "completed"
@@ -1139,8 +1091,6 @@ def test_openai_vector_store_search_modes(
         metadata={"purpose": "search_mode_testing"},
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1172,8 +1122,6 @@ def test_openai_vector_store_file_batch_create_and_retrieve(
         name="batch_test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1191,8 +1139,6 @@ def test_openai_vector_store_file_batch_create_and_retrieve(
         file_ids=file_ids,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1239,8 +1185,6 @@ def test_openai_vector_store_file_batch_list_files(
         name="batch_list_test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1258,8 +1202,6 @@ def test_openai_vector_store_file_batch_list_files(
         file_ids=file_ids,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1336,8 +1278,6 @@ def test_openai_vector_store_file_batch_cancel(
         name="batch_cancel_test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1355,8 +1295,6 @@ def test_openai_vector_store_file_batch_cancel(
         file_ids=file_ids,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1395,8 +1333,6 @@ def test_openai_vector_store_file_batch_retrieve_contents(
         name="batch_contents_test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1419,8 +1355,6 @@ def test_openai_vector_store_file_batch_retrieve_contents(
         file_ids=file_ids,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1472,8 +1406,6 @@ def test_openai_vector_store_file_batch_error_handling(
         name="batch_error_test_store",
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
@@ -1485,8 +1417,6 @@ def test_openai_vector_store_file_batch_error_handling(
         file_ids=file_ids,
         extra_body={
             "embedding_model": embedding_model_id,
-            "embedding_dimension": embedding_dimension,
-            "provider_id": "my_provider",
         },
     )
 
