@@ -218,6 +218,9 @@ See [PGVector's documentation](https://github.com/pgvector/pgvector) for more de
 | `db` | `str \| None` | No | postgres |  |
 | `user` | `str \| None` | No | postgres |  |
 | `password` | `str \| None` | No | mysecretpassword |  |
+| `distance_metric` | `Literal[COSINE, L2, L1, INNER_PRODUCT] \| None` | No | COSINE | PGVector distance metric used for vector search in PGVectorIndex |
+| `hnsw_m` | `int \| None` | No | 16 | PGVector's HNSW index parameter - maximum number of edges each vertex has to its neighboring vertices in the graph |
+| `hnsw_ef_construction` | `int \| None` | No | 64 | PGVector's HNSW index parameter - size of the dynamic candidate list used for graph construction |
 | `persistence` | `KVStoreReference \| None` | No |  | Config for KV store backend (SQLite only for now) |
 
 ## Sample Configuration
